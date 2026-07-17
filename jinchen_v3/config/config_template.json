@@ -1,0 +1,18 @@
+{
+  "_comment": "配置文件模板。复制为 config.json 后修改。API Key 必须通过环境变量设置，不要写入文件。",
+  "env": "dev",
+  "model": {
+    "provider": "deepseek",
+    "model": "deepseek-coder",
+    "api_key_env": "NUWA_AI_API_KEY",
+    "api_key": "",
+    "base_url": "",
+    "timeout": 60
+  },
+  "skill_dir": "Toolkit/skills",
+  "user": "anonymous",
+  "feedback_dir": "feedback",
+  "verdict_dir": "verdicts",
+  "violation_log": "violations.jsonl",
+  "project_root": "."
+}

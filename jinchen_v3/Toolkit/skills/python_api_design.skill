@@ -1,0 +1,42 @@
+# Tags: python, api, security, fastapi
+# Desc: Python API 接口编写规范
+
+## 基本要求
+
+1. 所有接口函数必须有类型注解（参数 + 返回值）
+2. 必须处理异常（try-except），不能裸奔
+3. 输入验证使用 Pydantic 模型
+4. 敏感信息不进日志
+
+## 代码模板
+
+```python
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from typing import Optional
+
+app = FastAPI()
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+class LoginResponse(BaseModel):
+    token: str
+    expires_in: int
+
+@app.post("/api/v1/login", response_model=LoginResponse)
+async def login(req: LoginRequest) -> LoginResponse:
+    try:
+        token = authenticate(req.username, req.password)
+        return LoginResponse(token=token, expires_in=3600)
+    except AuthError as e:
+        raise HTTPException(status_code=401, detail=str(e))
+```
+
+## 安全红线
+
+- 禁止硬编码密钥（用环境变量）
+- 禁止 SQL 拼接（用参数化查询）
+- 禁止把内部异常信息直接返回给客户端
+- 所有外部输入必须校验

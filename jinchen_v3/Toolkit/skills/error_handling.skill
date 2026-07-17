@@ -1,0 +1,45 @@
+# Tags: python, error, security, exception
+# Desc: Python 异常处理规范
+
+## 核心原则
+
+1. 所有 IO 操作必须 try-except（文件、网络、数据库）
+2. 捕获具体异常，禁止裸 `except:`
+3. 异常信息不泄露内部实现细节
+4. 关键操作记录日志（用 logging，不用 print）
+
+## 正确示例
+
+```python
+import logging
+log = logging.getLogger(__name__)
+
+def read_config(path: str) -> dict:
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        log.error(f"配置文件不存在: {path}")
+        return {}
+    except json.JSONDecodeError as e:
+        log.error(f"配置格式错误: {e}")
+        raise ConfigError(f"无效的配置文件: {path}") from e
+```
+
+## 禁止模式
+
+```python
+# ❌ 裸 except
+try:
+    do_something()
+except:
+    pass  # 吞掉所有异常，包括 KeyboardInterrupt
+
+# ❌ 泄露内部信息
+except Exception as e:
+    return {"error": str(e)}  # 可能暴露路径、SQL 等
+
+# ❌ 用 print 做日志
+except IOError:
+    print("出错了")  # 生产环境不可见
+```

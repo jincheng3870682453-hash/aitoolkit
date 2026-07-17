@@ -1,0 +1,92 @@
+[
+  {
+    "code": "def add(a, b):\n    return a + b\n",
+    "expected_violations": ["type_hints"],
+    "filename": "add.py",
+    "notes": "简单函数缺少类型注解"
+  },
+  {
+    "code": "def greet(name: str) -> str:\n    return f'Hello {name}'\n",
+    "expected_violations": [],
+    "filename": "greet.py",
+    "notes": "有类型注解，应该通过"
+  },
+  {
+    "code": "def read_file(path):\n    f = open(path)\n    data = f.read()\n    return data\n",
+    "expected_violations": ["try_except"],
+    "filename": "read_file.py",
+    "notes": "open 没有 try-except"
+  },
+  {
+    "code": "def read_safe(path):\n    try:\n        with open(path) as f:\n            return f.read()\n    except IOError:\n        return ''\n",
+    "expected_violations": ["type_hints"],
+    "filename": "read_safe.py",
+    "notes": "有 try-except 但缺类型注解"
+  },
+  {
+    "code": "api_key = 'sk-1234567890abcdef12345678'\ndef call_api():\n    return api_key\n",
+    "expected_violations": ["no_hardcoded_secrets", "type_hints"],
+    "filename": "secret.py",
+    "notes": "硬编码密钥 + 缺类型注解"
+  },
+  {
+    "code": "import os\napi_key = os.getenv('API_KEY')\n",
+    "expected_violations": ["type_hints"],
+    "filename": "env_key.py",
+    "notes": "用环境变量（正确），但缺类型注解"
+  },
+  {
+    "code": "def get_user(uid):\n    query = 'SELECT * FROM users WHERE id = ' + uid\n    cursor.execute(query)\n",
+    "expected_violations": ["type_hints", "no_sql_injection"],
+    "filename": "sql_bad.py",
+    "notes": "SQL 拼接注入 + 缺类型注解"
+  },
+  {
+    "code": "def get_user(uid: int):\n    cursor.execute('SELECT * FROM users WHERE id = %s', (uid,))\n",
+    "expected_violations": [],
+    "filename": "sql_good.py",
+    "notes": "参数化查询 + 有类型注解，应该全通过"
+  },
+  {
+    "code": "def factorial(n):\n    return n * factorial(n - 1)\n",
+    "expected_violations": ["type_hints", "no_infinite_recursion"],
+    "filename": "factorial_bad.py",
+    "notes": "无限递归 + 缺类型注解"
+  },
+  {
+    "code": "def factorial(n: int) -> int:\n    if n <= 1:\n        return 1\n    return n * factorial(n - 1)\n",
+    "expected_violations": [],
+    "filename": "factorial_good.py",
+    "notes": "有终止条件 + 有类型注解，应该全通过"
+  },
+  {
+    "code": "import json\nimport os\ndata = json.dumps({'a': 1})\n",
+    "expected_violations": ["type_hints"],
+    "filename": "unused_os.py",
+    "notes": "os 导入未使用 + 缺类型注解"
+  },
+  {
+    "code": "import json\njson_data = '{\"key\": \"value\"}'\nresult = json_data.upper()\n",
+    "expected_violations": ["type_hints", "no_unused_import"],
+    "filename": "json_data.py",
+    "notes": "json 模块未使用（json_data 是变量）+ 缺类型注解"
+  },
+  {
+    "code": "def my_func():\n    '''[TODO] implement this function'''\n    pass\n",
+    "expected_violations": ["type_hints", "markdown_clean"],
+    "filename": "todo_doc.py",
+    "notes": "docstring 有 [TODO] 占位符 + 缺类型注解"
+  },
+  {
+    "code": "def process(data: list) -> dict:\n    '''Process the input data.'''\n    return {'result': len(data)}\n",
+    "expected_violations": [],
+    "filename": "clean.py",
+    "notes": "一切正常，应该全通过"
+  },
+  {
+    "code": "import json\nimport os\nimport sys\ndata = json.dumps(os.getenv('KEY', ''))\nprint(sys.version)\n",
+    "expected_violations": ["type_hints"],
+    "filename": "all_used.py",
+    "notes": "所有导入都使用了，但缺类型注解"
+  }
+]

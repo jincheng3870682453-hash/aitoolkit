@@ -1,0 +1,41 @@
+# Tags: python, refactor, test, clean
+# Desc: 代码重构规范
+
+## 重构原则
+
+1. 函数单一职责（一个函数只做一件事）
+2. 命名见名知意（禁止 a/b/c/d 做变量名）
+3. 圈复杂度控制在 10 以内
+4. 重复代码超过 3 处 → 提取函数
+5. 每个公开函数必须有类型注解
+
+## 重构前 → 后
+
+```python
+# ❌ 坏味道
+def process(d):
+    r = []
+    for i in d:
+        if i['s'] == 1:
+            if i['a'] > 0:
+                r.append(i['n'].upper())
+    return r
+
+# ✅ 重构后
+def filter_active_names(items: list[dict]) -> list[str]:
+    """提取状态为激活的条目的名称（大写）"""
+    return [
+        item["name"].upper()
+        for item in items
+        if item["status"] == 1 and item["amount"] > 0
+    ]
+```
+
+## 检查清单
+
+- [ ] 函数长度 < 50 行
+- [ ] 参数数量 < 5 个
+- [ ] 无嵌套超过 3 层的 if
+- [ ] 无重复代码块
+- [ ] 命名符合 PEP 8
+- [ ] 有单元测试覆盖

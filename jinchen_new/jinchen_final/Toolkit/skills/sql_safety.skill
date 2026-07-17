@@ -1,0 +1,42 @@
+# Tags: sql, security, database
+# Desc: SQL 编写安全规范
+
+## 铁律
+
+1. **永远使用参数化查询**，禁止字符串拼接
+2. 最小权限原则：只给应用账号必要权限
+3. 敏感字段加密存储（密码用 bcrypt/scrypt）
+4. 大量数据操作加事务
+
+## 正确写法
+
+```python
+# ✅ 参数化查询
+cursor.execute(
+    "SELECT id, name FROM users WHERE email = %s",
+    (user_email,)
+)
+
+# ✅ 批量插入
+cursor.executemany(
+    "INSERT INTO logs (msg, ts) VALUES (%s, %s)",
+    [(m, t) for m, t in records]
+)
+
+# ✅ 事务保护
+with connection:
+    cursor.execute("UPDATE accounts SET balance = balance - %s WHERE id = %s", (amount, from_id))
+    cursor.execute("UPDATE accounts SET balance = balance + %s WHERE id = %s", (amount, to_id))
+```
+
+## 禁止写法
+
+```python
+# ❌ SQL 拼接（注入风险）
+query = f"SELECT * FROM users WHERE name = '{name}'"
+cursor.execute(query)
+
+# ❌ 动态表名拼接
+table = user_input  # 攻击者输入: users; DROP TABLE users;
+query = f"SELECT * FROM {table}"
+```

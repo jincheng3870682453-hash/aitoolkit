@@ -1,0 +1,41 @@
+# ════════════════════════════════════════════════════════
+# jinchen —— 依赖清单
+# 必装项放最上面，可选增强项用注释标注
+# ════════════════════════════════════════════════════════
+
+# ── 必装 ──────────────────────────────────────────
+requests>=2.31.0              # AI 平台 HTTP 调用
+
+# ── 上下文压缩（按需安装，装了自动启用）──────────
+# pip install claw-compactor     # 14 阶段 AST 感知压缩（压缩率 15-82%）
+# pip install distill-mcp        # 源头压缩（最高节省 98%）
+# pip install crx-engine         # 11 层优化管道（含读缓存 + 差异响应）
+# pip install token-reducer      # RAG + AST 混合分块（压缩 90-98%）
+# pip install contextcore        # GPU 加速上下文压缩（节省 60-95%）
+
+# ── 代码质量检查（按需安装，装了自动增强 work.py）─
+# pip install ai-slop-detector   # 静态分析 AI 生成代码的空壳/误导问题
+# pip install pyqual             # YAML 配置质量阈值，不合格自动迭代
+# pip install codetrust          # 本地 CLI 工具，确定性检查幻觉与质量
+# pip install kiss-metrics       # 反馈代码复杂度、重复度等信息
+# pip install code-arbiter       # 沙箱运行 + 真实测试套件验证正确性
+
+# ── 意图识别与 Skill 路由（按需安装）──────────────
+# pip install skilltree-router    # 将 Skill 构建为路由树，按意图按需加载
+# pip install openclaw-intent     # 分析用户意图并匹配最合适的 Skill
+
+# ── 综合网关 / Token 管控（按需安装）──────────────
+# pip install tokenless-engine    # 综合方案：Schema 压缩 57%、响应压缩 26-78%
+# pip install rtk-cli            # CLI 代理，过滤压缩命令输出（节省 60-90%）
+# pip install clawvault-gateway  # 企业级 AI 安全网关，含 Token 预算管控
+# pip install tokencap           # Python 库，追踪用量并强制执行预算
+
+# ── 代码库结构化（按需安装）──────────────────────
+# pip install reducethemtokens   # 将代码库提取为紧凑骨架（缩小 90%+）
+
+# ── 可选增强（之前就有）────────────────────────────
+# sentence-transformers>=2.2.0  # 语义意图识别（80MB 模型，离线运行）
+# jieba>=0.42.1                  # 中文分词
+# scikit-learn>=1.3.0             # 向量检索
+# tree-sitter>=0.20.4             # 真 AST 解析（替代正则，V3.3 Roadmap）
+# tree-sitter-languages>=1.10.0    # 多语言 AST 支持
