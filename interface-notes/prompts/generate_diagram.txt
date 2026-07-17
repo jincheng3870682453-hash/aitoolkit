@@ -1,0 +1,30 @@
+# Task
+根据 session.ai_notes 中的接口数据，生成一张 Mermaid 架构图。
+
+# 规则
+1. 每个接口是一个节点，显示接口名 + 一句话功能
+2. 箭头方向：A → B 表示 "A 调用 B"
+3. 颜色规则：
+   - risk_level = low → 绿色 (#238636)
+   - risk_level = medium → 黄色 (#d29922)
+   - risk_level = high → 红色 (#f85149)
+4. 节点大小不区分，保持统一
+
+# 输出
+只输出 Mermaid 代码块，不要多余解释。
+
+# 示例输出
+
+```mermaid
+flowchart TD
+    A["generate_report<br/>生成PDF"] -->|调用| B["send_email<br/>发邮件"]
+    A -->|调用| C["query_database<br/>查用户表"]
+    D["push_notification<br/>推送通知"] -->|调用| B
+    B -->|调用| C
+
+    style D fill:#f85149,stroke:#fff,color:#fff
+    style C fill:#d29922,stroke:#fff,color:#fff
+    style A fill:#238636,stroke:#fff,color:#fff
+```
+
+> 🔴 红色 = 高风险 | 🟡 黄色 = 中风险 | 🟢 绿色 = 稳定

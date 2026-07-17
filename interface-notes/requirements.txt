@@ -1,0 +1,20 @@
+# Interface Notes 依赖
+# ============================
+# 核心功能（模式A/B + 导出 + Mermaid）仅需标准库，无强制第三方依赖。
+# 以下为可选增强：
+
+# [ocr] 额外依赖：拍照 OCR 回流需要 Tesseract 系统库 + pytesseract
+#   Ubuntu:  sudo apt-get install tesseract-ocr tesseract-ocr-chi-sim
+#   macOS:    brew install tesseract tesseract-lang
+#   Windows:  下载安装包 https://github.com/UB-Mannheim/tesseract/wiki
+# 安装：pip install interface-notes[ocr]
+
+# [dev] 开发依赖：运行测试套件
+# 安装：pip install interface-notes[dev]
+
+# --- 可选依赖声明（pip install interface-notes[ocr]） ---
+pytesseract>=0.3.10  # 可选，用于真实 OCR；不装则自动进入模拟模式
+pillow>=10.0          # 可选，PIL 图片预处理；不装则跳过图片打开
+
+# --- 开发依赖（pip install interface-notes[dev]） ---
+# pytest>=7.0  # 测试框架（当前测试为独立脚本，非必须）

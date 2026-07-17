@@ -1,0 +1,71 @@
+GitHub 仓库设置参考
+====================
+
+【Repository name】
+interface-notes
+
+
+【Description】（GitHub 网页一句话简介）
+--------------------------------------------------
+英文（推荐放这里，全球搜索友好）：
+  AI-powered interface documentation tool — scan, print, handwrite, OCR back.
+
+中文（可放 About 板块或 Discussions 置顶）：
+  AI 驱动的代码接口文档工具 —— 扫描、打印、手写、OCR 回流。
+
+⚠️ 关于徽章（badges）：
+  仓库使用 docs/badges/ 下的本地 SVG 文件，不依赖 img.shields.io。
+  原因：shields.io 的 /badge/status-active 等前缀经常 404，
+  且 GitHub 对外部动态 SVG 有时渲染不稳定。
+  如需替换为 shields.io 动态版，自行修改 README 顶部的 <img src> 即可。
+
+
+【Website】（可选）
+留空即可；将来可指向 GitHub Pages 或 Read the Docs。
+
+
+【Topics】（Settings → Topics，逐个添加，共 10 个）
+--------------------------------------------------
+ai
+documentation
+code-analysis
+static-analysis
+cli-tool
+mermaid
+ocr
+developer-tools
+python
+codebase-visualization
+
+
+【About 板块预览】
+--------------------------------------------------
+Interface Notes
+
+AI-powered interface documentation tool — scan, print, handwrite, OCR back.
+
+Topics: ai · documentation · code-analysis · static-analysis · cli-tool ·
+         mermaid · ocr · developer-tools · python · codebase-visualization
+
+License: MIT
+
+
+【语言切换说明】
+--------------------------------------------------
+仓库根目录有三个 README 文件：
+
+  README.md       ← 默认入口（中英文双语，带语言切换链接）
+  README_EN.md    ← 纯英文版（适合设为 GitHub Pages 主页）
+  README_ZH.md    ← 纯中文版
+
+GitHub 默认渲染 README.md，用户可点击顶部链接切换语言。
+
+
+【Settings 建议】
+--------------------------------------------------
+✅ Enable Issues
+✅ Enable Discussions（便于社区交流用法）
+✅ Enable Wiki（可选，放进阶教程）
+✅ Branch protection on main
+   → Require "tests" workflow to pass
+✅ Enable Sponsors / Funding（如未来接 GitHub Sponsors）
